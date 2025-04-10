@@ -25,6 +25,12 @@ func GetAllTasks(w http.ResponseWriter, r *http.Request) {
 		respondWithError(w, http.StatusInternalServerError, "Error retrieving tasks")
 		return
 	}
+
+	respondWithJSON(w, http.StatusOK, Response{
+		Status: http.StatusOK,
+		Message: "Tasks retrieved successfully",
+		Data: tasks,
+	})
 }
 
 // GetTask returns a single task by ID
