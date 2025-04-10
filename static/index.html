@@ -153,6 +153,49 @@
 
             return taskDiv;
         }
+
+        // Create a new Task
+        function createTask() {
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const status = document.getElementById('status').value;
+
+            if(!title) {
+                alert('Title is required');
+                return;
+            }
+
+            const task = {
+                title,
+                description,
+                status
+            };
+
+            fetch('/api/tasks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(task),
+            })
+            .then(response => response.json())
+            .then(result => {
+                // Clear form
+                document.getElementById('title').value = '';
+                document.getElementById('description').value = '';
+                document.getElementById('status').value = 'pending';
+
+                // Refresh tasks
+                fetchTasks();
+            })
+            .catch(error => {
+                console.error('Error createing task:', error);
+            });
+        }
+
+        // Edit a task
+
+        // Delete a task
     </script>
 </body>
 
