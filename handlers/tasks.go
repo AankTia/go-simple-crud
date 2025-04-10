@@ -102,6 +102,8 @@ func UpdateTask(w http.ResponseWriter, r *http.Request) {
 	task.Status = updatedTask.Status
 
 	// Save changes
+	database.DB.Save(&task)
+	
 	respondWithJSON(w, http.StatusOK, Response{
 		Status: http.StatusOK,
 		Message: "Task updated successfully",

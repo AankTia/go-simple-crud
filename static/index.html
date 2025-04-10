@@ -194,6 +194,41 @@
         }
 
         // Edit a task
+        function editTask(id) {
+            // For simplicity, prompt for new values
+            fetch(`/api/tasks/${id}`)
+                .then(response => response.json())
+                .then(result => {
+                    const task = result.data;
+
+                    const newTitle = prompt('Update title:', task.title);
+                    const newDescription = prompt('Update description:', task.description);
+                    const newStatus = confirm('Mark as completed?') ? 'completed' : 'pending';
+
+                    if (newTitle === null) return; // User canceled
+
+                    const updatedTask = {
+                        title: newTitle,
+                        description: newDescription,
+                        status: newStatus
+                    };
+
+                    fetch(`/api/tasks/${id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(updatedTask),
+                    })
+                        .then(response => response.json())
+                        .then(result => {
+                            fetchTasks();
+                        })
+                        .catch(error => {
+                            console.error('Error updatin task:', error)
+                        });
+                });
+        }
 
         // Delete a task
     </script>
