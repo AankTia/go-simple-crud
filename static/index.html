@@ -160,7 +160,7 @@
             const description = document.getElementById('description').value;
             const status = document.getElementById('status').value;
 
-            if(!title) {
+            if (!title) {
                 alert('Title is required');
                 return;
             }
@@ -178,19 +178,19 @@
                 },
                 body: JSON.stringify(task),
             })
-            .then(response => response.json())
-            .then(result => {
-                // Clear form
-                document.getElementById('title').value = '';
-                document.getElementById('description').value = '';
-                document.getElementById('status').value = 'pending';
+                .then(response => response.json())
+                .then(result => {
+                    // Clear form
+                    document.getElementById('title').value = '';
+                    document.getElementById('description').value = '';
+                    document.getElementById('status').value = 'pending';
 
-                // Refresh tasks
-                fetchTasks();
-            })
-            .catch(error => {
-                console.error('Error createing task:', error);
-            });
+                    // Refresh tasks
+                    fetchTasks();
+                })
+                .catch(error => {
+                    console.error('Error createing task:', error);
+                });
         }
 
         // Edit a task
