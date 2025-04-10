@@ -20,7 +20,7 @@ func main() {
 	// Routes
 	router.HandleFunc("/api/tasks", handlers.GetAllTasks).Methods("GET")
 	router.HandleFunc("/api/tasks/{id}", handlers.GetTask).Methods("GET")
-	router.HandleFunc("/api/taks", handlers.CreateTask).Methods("POST")
+	router.HandleFunc("/api/tasks", handlers.CreateTask).Methods("POST")
 	router.HandleFunc("/api/tasks/{id}", handlers.UpdateTask).Methods("PUT")
 	router.HandleFunc("/api/tasks/{id}", handlers.DeleteTask).Methods("DELETE")
 

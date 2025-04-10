@@ -50,7 +50,7 @@ func CreateTask(w http.ResponseWriter, r *http.Request) {
 	var task models.Task
 	decoder := json.NewDecoder(r.Body)
 
-	if err:= decoder.Decode(&task); err != nil {
+	if err := decoder.Decode(&task); err != nil {
 		respondWithError(w, http.StatusBadRequest, "Invalid request payload")
 		return
 	}
