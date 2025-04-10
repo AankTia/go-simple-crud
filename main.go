@@ -24,6 +24,9 @@ func main() {
 	router.HandleFunc("/api/tasks/{id}", handlers.UpdateTask).Methods("PUT")
 	router.HandleFunc("/api/tasks/{id}", handlers.DeleteTask).Methods("DELETE")
 
+	// Serve static files
+	router.PathPrefix("/").Handler(http.FileServer(http.Dir("./static")))
+
 	// Start server
 	port := ":8080"
 	fmt.Printf("Server is running on htttp://localhost%s\n", port)
