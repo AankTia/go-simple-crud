@@ -86,5 +86,51 @@
 
         <h2>Tasks</h2>
         <div id="tasks-container"></div>
+
+        <script>
+            // Fetch all task when page loads
+            document.addEventListener('DOMContentLoader', fetchTasks);
+
+            // Fetch all tasks
+            function fetchTasks() {
+                fetch('/api/tasks')
+                    .then(response => response.json())
+                    .then(result => {
+                        const tasksContainer = document.getElementById('tasks-container');
+                        tasksContainer.innerHTML = '';
+
+                        if (result.data && result.data.length > 0) {
+                            result.data.foreach(task => {
+                                const taskElement = createTaskElement(task);
+                                tasksContainer.appendChild(taskElement);
+                            });
+                        } else {
+                            tasksContainer.innerHTML = '<p>No tasks found. Add a new taks!</p>';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching tasks:', error);
+                    });
+            }
+
+            // Create task element
+            function createTaskElement(task) {
+                const taskDiv = document.createElement('div');
+                taskDiv.className = 'task';
+                taskDiv.dataset.id = task.id;
+
+                const statusClass = task.status === 'completed' ? 'completed' : 'pending';
+
+                taskDiv.innerHTML = `
+                    <h3>${task.title}</h3>
+                    <p>${task.description}</p>
+                    <p>Status: <span class="task-status ${statusClass}">${task.status}</span></p>
+                    <button class="edit" onclick="editTask(${task.id})">Edit</button>
+                    <button class="delete" onclick="deleteTask(${task.id})">Delete</button>
+                `;
+
+                return taskDiv;
+            }
+        </script>
     </body>
 </html>
