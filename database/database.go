@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	models "github.com/AankTia/go-simple-crud/handlers"
+	models "github.com/AankTia/go-simple-crud/models"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
